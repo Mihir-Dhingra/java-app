@@ -6,7 +6,7 @@ pipeline {
 
         stage("Git Checkout"){
             steps {
-                git branch: 'main', url: 'https://github.com/vishalchauhan91196/java-app.git'
+                git branch: 'main', url: 'https://github.com/Mihir-Dhingra/java-app.git'
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
         stage("Static Code Analysis"){
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                    withSonarQubeEnv(credentialsId: 'newsonarqube') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
@@ -41,7 +41,7 @@ pipeline {
         stage("Quality Gate Analysis"){
             steps {
                 script {
-                   waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube' 
+                   waitForQualityGate abortPipeline: false, credentialsId: 'newsonarqube' 
                 }
             }
         }
